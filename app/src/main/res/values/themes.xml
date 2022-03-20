@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.AcmeRouter" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <style name="Theme.AcmeRouter.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.AcmeRouter.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.AcmeRouter.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.AcmeRouter.Text">
+        <item name="android:background">@color/text_background</item>
+        <item name="android:textColor">@color/text_foreground</item>
+    </style>
+
+    <style name="Theme.AcmeRouter.Text.StandAlone">
+        <item name="android:padding">@dimen/text_padding</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Theme.AcmeRouter.Text.StandAlone.Large">
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+</resources>
