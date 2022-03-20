@@ -48,6 +48,11 @@ object Dependencies {
         const val appCompatTheme = "com.google.accompanist:accompanist-appcompat-theme:${Versions.JetpackCompose.appCompatTheme}"
         const val swipeRefresh = "com.google.accompanist:accompanist-swiperefresh:${Versions.JetpackCompose.swipeRefresh}"
     }
+
+    object Retrofit {
+        const val core = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+        const val gsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    }
 }
 
 fun Project.importCommonPlugins() {
@@ -80,6 +85,9 @@ fun Project.importCommonDependencies() {
         implementation(Dependencies.DaggerHilt.fragment)
         implementation(Dependencies.DaggerHilt.compiler)
         "kapt"(Dependencies.DaggerHilt.compiler)
+
+        implementation(Dependencies.Retrofit.core)
+        implementation(Dependencies.Retrofit.gsonConverter)
 
         testImplementation(Dependencies.Test.junit)
         androidTestImplementation(Dependencies.Test.runner)

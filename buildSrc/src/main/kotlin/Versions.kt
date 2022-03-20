@@ -10,6 +10,9 @@ object Versions {
     const val mockk = "1.12.2"
     const val coroutinesTest = "1.4.2"
 
+    const val okhttp = "4.9.0"
+    const val retrofit = "2.9.0"
+
     object DependencyInjection {
         const val daggerHilt = "2.38.1"
         const val daggerHiltJetpack = "1.0.0-alpha02"

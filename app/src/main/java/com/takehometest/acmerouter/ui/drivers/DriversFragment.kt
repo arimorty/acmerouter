@@ -52,7 +52,7 @@ class DriversFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(view?.context)
         recyclerView.adapter = adapter
         adapter.onItemClick = {
-            activity?.openFragment(DestinationFragment.newInstance(it.id), true)
+            activity?.openFragment(DestinationFragment.newInstance(it.id!!), true)
         }
     }
 
