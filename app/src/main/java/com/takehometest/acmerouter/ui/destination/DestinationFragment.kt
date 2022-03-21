@@ -20,7 +20,7 @@ class DestinationFragment : Fragment() {
     companion object {
         const val FIELD_DRIVER_ID = "field_driver_id"
 
-        fun newInstance(driverFullName: String): DestinationFragment {
+        fun newInstance(driverFullName: Int): DestinationFragment {
             return DestinationFragment().apply {
                 arguments = bundleOf(FIELD_DRIVER_ID to driverFullName)
             }
@@ -43,13 +43,13 @@ class DestinationFragment : Fragment() {
 
         subscribeObservers();
 
-        setData(arguments?.getString(FIELD_DRIVER_ID)!!);
+        setData(arguments?.getInt(FIELD_DRIVER_ID)!!);
 
         return view
     }
 
-    private fun setData(driverFullName: String) {
-        viewModel.resetState(driverFullName)
+    private fun setData(driverId: Int) {
+        viewModel.resetState(driverId)
     }
 
     private fun subscribeObservers() {

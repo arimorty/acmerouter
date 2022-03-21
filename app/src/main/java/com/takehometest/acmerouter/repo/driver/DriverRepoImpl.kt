@@ -8,9 +8,9 @@ import kotlinx.coroutines.withContext
 interface DriverRepoLocalSource {
     suspend fun getDrivers(): List<Driver>
 
-    suspend fun getDriverById(driverId: String): Driver
+    suspend fun getDriverById(driverId: Int): Driver
 
-    suspend fun saveDrivers(drivers: List<Driver>): List<Driver>
+    suspend fun saveDrivers(drivers: List<Driver>)
 }
 
 interface DriverRepoRemoteSource {
@@ -46,7 +46,7 @@ class DriverRepoImpl(
             }
         }
 
-    override suspend fun getDriverById(driverId: String): Driver {
+    override suspend fun getDriverById(driverId: Int): Driver {
         return localSource.getDriverById(driverId)
     }
 
@@ -54,6 +54,6 @@ class DriverRepoImpl(
         withContext(ioDispatcher) {
             val remoteData = remoteSource.getDrivers()
             localSource.saveDrivers(remoteData)
-            remoteData
+            localSource.getDrivers()
         }
 }

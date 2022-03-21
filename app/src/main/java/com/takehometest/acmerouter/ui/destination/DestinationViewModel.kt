@@ -27,7 +27,7 @@ class DestinationViewModel @Inject constructor(
     val dataState: LiveData<DestinationViewState>
         get() = _dataState
 
-    fun resetState(driverId: String) {
+    fun resetState(driverId: Int) {
         viewModelScope.launch {
             val state = DestinationViewState();
             state.driver = getDriverById.execute(driverId)

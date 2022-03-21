@@ -10,7 +10,7 @@ class GetDriverById @Inject constructor(
     private val driverRepo: DriverRepo,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-    suspend fun execute(driverId: String) = withContext(ioDispatcher) {
+    suspend fun execute(driverId: Int) = withContext(ioDispatcher) {
         driverRepo.getDriverById(driverId)
     }
 }

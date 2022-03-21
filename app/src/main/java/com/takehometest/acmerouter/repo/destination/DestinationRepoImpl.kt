@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 interface DestinationRepoLocalSource {
     suspend fun getDestinations(): List<Destination>
 
-    suspend fun getDestinationByDriver(driverId: String): Destination
+    suspend fun getDestinationByDriver(driverId: Int): Destination?
 
     suspend fun saveDestinations(destinations: List<Destination>)
 }
@@ -42,7 +42,7 @@ class DestinationRepoImpl(
             }
         }
 
-    override suspend fun getDestinationByDriver(driverId: String) = withContext(ioDispatcher) {
+    override suspend fun getDestinationByDriver(driverId: Int) = withContext(ioDispatcher) {
         localSource.getDestinationByDriver(driverId)
     }
 

@@ -15,7 +15,7 @@ class DriverRepoRemoteSourceImpl @Inject constructor(
 }
 
 fun map(from: List<String>): List<Driver> {
-    return from.map {
-        Driver(id = null, fullName = it)
+    return from.mapIndexed { index, it ->
+        Driver(id = index, fullName = it)
     }
 }

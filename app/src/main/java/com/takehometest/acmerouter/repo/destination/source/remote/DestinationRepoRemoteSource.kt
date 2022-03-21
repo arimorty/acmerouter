@@ -16,9 +16,9 @@ class DestinationRepoRemoteSourceImpl @Inject constructor(
 }
 
 fun map(from: List<String>): List<Destination> {
-    return from.map {
+    return from.mapIndexed { index, it ->
         val streetPart: String = it.substringAfter(" ");
         val streetNumberPart: String = it.substringBefore(" ");
-        Destination(street = streetPart, streetNumber = streetNumberPart)
+        Destination(id = index, street = streetPart, streetNumber = streetNumberPart)
     }
 }

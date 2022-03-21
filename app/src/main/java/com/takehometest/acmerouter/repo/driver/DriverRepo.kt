@@ -8,5 +8,5 @@ import com.takehometest.acmerouter.entity.Driver
 interface DriverRepo {
     suspend fun getDrivers(refreshCache: Boolean): List<Driver>
 
-    suspend fun getDriverById(driverId: String): Driver
+    suspend fun getDriverById(driverId: Int): Driver
 }

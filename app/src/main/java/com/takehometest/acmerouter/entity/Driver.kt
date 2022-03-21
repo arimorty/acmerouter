@@ -1,3 +1,6 @@
 package com.takehometest.acmerouter.entity
 
-data class Driver(val id: String?, val fullName: String)
+data class Driver(
+    val id: Int? = -1,
+    val fullName: String
+)

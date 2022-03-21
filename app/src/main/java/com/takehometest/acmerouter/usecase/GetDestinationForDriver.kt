@@ -16,21 +16,23 @@ class GetDestinationForDriver @Inject constructor(
     private val destinationRepo: DestinationRepo,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-    suspend fun execute(driverId: String) = withContext(ioDispatcher) {
-        var destinationForDriver: Destination = destinationRepo.getDestinationByDriver(driverId)
+    suspend fun execute(driverId: Int) = withContext(ioDispatcher) {
+        var destinationForDriver: Destination? = destinationRepo.getDestinationByDriver(driverId)
 
-        val isNewDay: Boolean = !DateUtils.isToday(destinationForDriver.dateAssignedToDriver!!)
+        if (destinationForDriver != null) {
+            val isNewDay: Boolean = !DateUtils.isToday(destinationForDriver.dateAssignedToDriver!!)
 
-        val refreshNeeded: Boolean = destinationForDriver == null || isNewDay;
+            val refreshNeeded: Boolean = destinationForDriver == null || isNewDay;
 
-        if (refreshNeeded) {
-            var destinations: List<Destination> = destinationRepo.getDestinations(true)
-            val drivers: List<Driver> = driverRepo.getDrivers(true)
+            if (refreshNeeded) {
+                var destinations: List<Destination> = destinationRepo.getDestinations(true)
+                val drivers: List<Driver> = driverRepo.getDrivers(true)
 
-            destinations = assignDriversToDestinations(drivers, destinations)
-            destinationRepo.updateDestinations(destinations)
+                destinations = assignDriversToDestinations(drivers, destinations)
+                destinationRepo.updateDestinations(destinations)
 
-            destinationForDriver = destinationRepo.getDestinationByDriver(driverId)
+                destinationForDriver = destinationRepo.getDestinationByDriver(driverId)
+            }
         }
         destinationForDriver
     }

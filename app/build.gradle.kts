@@ -9,6 +9,8 @@ configAndroid()
 importCommonDependencies()
 
 android {
+    configurations { implementation.get().exclude(mapOf("group" to "org.jetbrains", "module" to "annotations")) }
+
     defaultConfig {
         applicationId = Versions.App.id
 
@@ -18,6 +20,8 @@ android {
                 argument("enableParallelEpoxyProcessing", "true")
             }
         }
+
+
     }
 
     buildFeatures {

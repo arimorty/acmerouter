@@ -8,7 +8,7 @@ import com.takehometest.acmerouter.entity.Destination
 interface DestinationRepo {
     suspend fun getDestinations(refreshCache: Boolean): List<Destination>
 
-    suspend fun getDestinationByDriver(driverId: String): Destination
+    suspend fun getDestinationByDriver(driverId: Int): Destination?
 
     suspend fun updateDestinations(destinations: List<Destination>)
 }

@@ -53,6 +53,12 @@ object Dependencies {
         const val core = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
         const val gsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     }
+
+    object Room {
+        const val runtime = "androidx.room:room-runtime:${Versions.room}"
+        const val annotation = "androidx.room:room-compiler:${Versions.room}"
+        const val ktx = "androidx.room:room-ktx:${Versions.room}"
+    }
 }
 
 fun Project.importCommonPlugins() {
@@ -88,6 +94,11 @@ fun Project.importCommonDependencies() {
 
         implementation(Dependencies.Retrofit.core)
         implementation(Dependencies.Retrofit.gsonConverter)
+
+        implementation(Dependencies.Room.annotation)
+        implementation(Dependencies.Room.runtime)
+        implementation(Dependencies.Room.ktx)
+        "kapt"(Dependencies.Room.annotation)
 
         testImplementation(Dependencies.Test.junit)
         androidTestImplementation(Dependencies.Test.runner)
