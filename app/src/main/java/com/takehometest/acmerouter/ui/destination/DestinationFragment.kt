@@ -55,8 +55,11 @@ class DestinationFragment : Fragment() {
     private fun subscribeObservers() {
         viewModel.dataState.observe(viewLifecycleOwner) { state ->
             requireActivity().title = state.driver?.fullName
-
-            val fullAddress: String = state.destination?.streetNumber + state.destination?.street
+            val fullAddress: String? = context?.resources?.getString(
+                R.string.destination,
+                state.destination?.streetNumber,
+                state.destination?.street
+            )
             destinationFullName.text = fullAddress
         }
     }

@@ -105,7 +105,7 @@ object RepoModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
-        .baseUrl("http://nonexistantjdvsjcsdghnApirjhs")
+        .baseUrl("http://10.0.2.2:8080/")
         .build()
 
     @Provides

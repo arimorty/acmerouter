@@ -3,7 +3,6 @@ package com.takehometest.acmerouter.usecase
 import android.text.format.DateUtils
 import com.takehometest.acmerouter.entity.Destination
 import com.takehometest.acmerouter.entity.Driver
-import com.takehometest.acmerouter.entity.assignDriversToDestinations
 import com.takehometest.acmerouter.repo.destination.DestinationRepo
 import com.takehometest.acmerouter.repo.driver.DriverRepo
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,20 +18,16 @@ class GetDestinationForDriver @Inject constructor(
     suspend fun execute(driverId: Int) = withContext(ioDispatcher) {
         var destinationForDriver: Destination? = destinationRepo.getDestinationByDriver(driverId)
 
-        if (destinationForDriver != null) {
-            val isNewDay: Boolean = !DateUtils.isToday(destinationForDriver.dateAssignedToDriver!!)
+        val refreshNeeded: Boolean = destinationForDriver == null
+                || !DateUtils.isToday(destinationForDriver.dateAssignedToDriver!!);
 
-            val refreshNeeded: Boolean = destinationForDriver == null || isNewDay;
+        if (refreshNeeded) {
+            val destinations: List<Destination> = destinationRepo.getDestinations(true)
+            val drivers: List<Driver> = driverRepo.getDrivers(true)
 
-            if (refreshNeeded) {
-                var destinations: List<Destination> = destinationRepo.getDestinations(true)
-                val drivers: List<Driver> = driverRepo.getDrivers(true)
+            destinationRepo.updateDestinations(Destination.assignDriversToDestinations(drivers, destinations))
 
-                destinations = assignDriversToDestinations(drivers, destinations)
-                destinationRepo.updateDestinations(destinations)
-
-                destinationForDriver = destinationRepo.getDestinationByDriver(driverId)
-            }
+            destinationForDriver = destinationRepo.getDestinationByDriver(driverId)
         }
         destinationForDriver
     }

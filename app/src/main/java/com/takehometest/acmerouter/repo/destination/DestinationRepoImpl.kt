@@ -5,6 +5,10 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Local is where data changes from the app are saved to, thus simulating a fully functional
+ * remote source.
+ */
 interface DestinationRepoLocalSource {
     suspend fun getDestinations(): List<Destination>
 
@@ -13,6 +17,9 @@ interface DestinationRepoLocalSource {
     suspend fun saveDestinations(destinations: List<Destination>)
 }
 
+/**
+ * Remote is readonly for now, so only a accessor method is needed.
+ */
 interface DestinationRepoRemoteSource {
     suspend fun getDestinations(): List<Destination>
 }
@@ -42,11 +49,11 @@ class DestinationRepoImpl(
             }
         }
 
-    override suspend fun getDestinationByDriver(driverId: Int) = withContext(ioDispatcher) {
+    override suspend fun getDestinationByDriver(driverId: Int): Destination? = withContext(ioDispatcher) {
         localSource.getDestinationByDriver(driverId)
     }
 
-    override suspend fun updateDestinations(destinations: List<Destination>): Unit =
+    override suspend fun updateDestinations(destinations: List<Destination>) =
         withContext(ioDispatcher) {
             localSource.saveDestinations(destinations)
         }
@@ -54,6 +61,6 @@ class DestinationRepoImpl(
     private suspend fun getDestinationsAndCache(): List<Destination> = withContext(ioDispatcher) {
         val remoteData = remoteSource.getDestinations()
         localSource.saveDestinations(remoteData)
-        remoteData
+        localSource.getDestinations()
     }
 }

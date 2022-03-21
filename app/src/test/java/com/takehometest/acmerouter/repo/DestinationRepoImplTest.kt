@@ -6,6 +6,7 @@ import com.takehometest.acmerouter.repo.destination.DestinationRepoImpl
 import com.takehometest.acmerouter.repo.destination.DestinationRepoLocalSource
 import com.takehometest.acmerouter.repo.destination.DestinationRepoRemoteSource
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,43 +36,44 @@ class DestinationRepoImplTest {
     var mainCoroutineRule = MainCoroutineRule()
 
     @Before
-    fun createRepository() {
+    fun setup() {
         destinationRepo = DestinationRepoImpl(
             destinationRepoLocalSource, destinationRepoRemoteSource, Dispatchers.Main
         )
         testDestinationsLocal = listOf(
             Destination(
+                id = 1,
                 streetNumber = "street_placeholder_local",
                 street = "street_number_placeholder_local",
             )
         )
         testDestinationsRemote = listOf(
             Destination(
+                id = 1,
                 streetNumber = "street_placeholder_remote",
                 street = "street_number_address_placeholder_remote",
             )
         )
     }
 
+    //todo use verify
     @Test
     fun getDestinations_requestsDestinationsFromRemoteDataSource_whenForcedRefreshTrue_andLocalDataExist() =
         mainCoroutineRule.runBlockingTest {
             coEvery { destinationRepoLocalSource.getDestinations() } returns testDestinationsLocal
-           // coEvery { destinationRepoLocalSource.saveDestinations(any()) } returns testDestinationsLocal
-
+            coEvery { destinationRepoLocalSource.saveDestinations(any()) } returns Unit
             coEvery { destinationRepoRemoteSource.getDestinations() } returns testDestinationsRemote
 
-            var result: List<Destination> = destinationRepo.getDestinations(true)
+            val result: List<Destination> = destinationRepo.getDestinations(true)
 
-            assertThat(result, IsEqual(testDestinationsRemote))
+            coVerify { destinationRepoLocalSource.saveDestinations(testDestinationsRemote) }
+            assertThat(result, IsEqual(testDestinationsLocal))
         }
 
     @Test
     fun getDestinations_requestsDestinationsFromRemoteDataSource_whenForcedRefreshFalse_andLocalDataExist() =
         mainCoroutineRule.runBlockingTest {
             coEvery { destinationRepoLocalSource.getDestinations() } returns testDestinationsLocal
-            //coEvery { destinationRepoLocalSource.saveDestinations(any()) } returns testDestinationsLocal
-
             coEvery { destinationRepoRemoteSource.getDestinations() } returns testDestinationsRemote
 
             var result: List<Destination> = destinationRepo.getDestinations(false)
@@ -84,13 +86,13 @@ class DestinationRepoImplTest {
         mainCoroutineRule.runBlockingTest {
             testDestinationsLocal = listOf()
             coEvery { destinationRepoLocalSource.getDestinations() } returns testDestinationsLocal
-            //coEvery { destinationRepoLocalSource.saveDestinations(any()) } returns testDestinationsLocal
-
+            coEvery { destinationRepoLocalSource.saveDestinations(any()) } returns Unit
             coEvery { destinationRepoRemoteSource.getDestinations() } returns testDestinationsRemote
 
             var result: List<Destination> = destinationRepo.getDestinations(true)
 
-            assertThat(result, IsEqual(testDestinationsRemote))
+            coVerify { destinationRepoLocalSource.saveDestinations(testDestinationsRemote) }
+            assertThat(result, IsEqual(testDestinationsLocal))
         }
 
     @Test
@@ -98,12 +100,12 @@ class DestinationRepoImplTest {
         mainCoroutineRule.runBlockingTest {
             testDestinationsLocal = listOf()
             coEvery { destinationRepoLocalSource.getDestinations() } returns testDestinationsLocal
-            //coEvery { destinationRepoLocalSource.saveDestinations(any()) } returns testDestinationsLocal
-
+            coEvery { destinationRepoLocalSource.saveDestinations(any()) } returns Unit
             coEvery { destinationRepoRemoteSource.getDestinations() } returns testDestinationsRemote
 
             var result: List<Destination> = destinationRepo.getDestinations(false)
 
-            assertThat(result, IsEqual(testDestinationsRemote))
+            coVerify { destinationRepoLocalSource.saveDestinations(testDestinationsRemote) }
+            assertThat(result, IsEqual(testDestinationsLocal))
         }
 }
