@@ -5,6 +5,10 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Local source, where data changes from the app are saved to, thus simulating a fully functional
+ * remote source.
+ */
 interface DriverRepoLocalSource {
     suspend fun getDrivers(): List<Driver>
 
@@ -13,6 +17,9 @@ interface DriverRepoLocalSource {
     suspend fun saveDrivers(drivers: List<Driver>)
 }
 
+/**
+ * Remote source, readonly for now, so only a accessor method is needed.
+ */
 interface DriverRepoRemoteSource {
     suspend fun getDrivers(): List<Driver>
 }

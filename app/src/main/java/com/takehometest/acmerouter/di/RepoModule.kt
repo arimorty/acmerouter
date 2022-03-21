@@ -2,9 +2,9 @@ package com.takehometest.acmerouter.di
 
 import android.content.Context
 import androidx.room.Room
-import com.takehometest.acmerouter.remote.AssetRequestInterceptor
 import com.takehometest.acmerouter.repo.common.source.local.AcmeDatabase
 import com.takehometest.acmerouter.repo.common.source.remote.AcmeService
+import com.takehometest.acmerouter.repo.common.source.remote.AssetRequestInterceptor
 import com.takehometest.acmerouter.repo.destination.DestinationRepo
 import com.takehometest.acmerouter.repo.destination.DestinationRepoImpl
 import com.takehometest.acmerouter.repo.destination.DestinationRepoLocalSource
@@ -30,6 +30,8 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+
+//TODO: break down modules for readability
 
 @InstallIn(SingletonComponent::class)
 @Module

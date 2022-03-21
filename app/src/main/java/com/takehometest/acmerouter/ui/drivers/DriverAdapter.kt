@@ -9,8 +9,7 @@ import com.takehometest.acmerouter.R
 import com.takehometest.acmerouter.entity.Driver
 
 /**
- * An adapter for [Driver]s that delegates view
- * creation and binding to the appropriate [ComponentViewHolderBinder]s
+ * An adapter for the [Driver]s list.
  */
 class DriverAdapter : RecyclerView.Adapter<DriverAdapter.DriverViewHolder>() {
     private val driverList = mutableListOf<Driver>()

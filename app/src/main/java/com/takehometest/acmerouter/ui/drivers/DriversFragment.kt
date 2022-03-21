@@ -15,7 +15,7 @@ import com.takehometest.acmerouter.ui.destination.DestinationFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * A simple [Fragment] subclass as the default destination in the navigation.
+ * A [Fragment] subclass that holds the drivers screen.
  */
 @AndroidEntryPoint
 class DriversFragment : Fragment() {
@@ -30,11 +30,11 @@ class DriversFragment : Fragment() {
     ): View? {
         //TODO: use view binding
         val view: View = inflater.inflate(R.layout.fragment_drivers, container, false)
-        val recyclerView: RecyclerView = view.findViewById(R.id.feed_recycler_view)
+        val recyclerView: RecyclerView = view.findViewById(R.id.drivers_recycler_view)
 
         adapter = DriverAdapter();
 
-        setupFeedRecyclerView(recyclerView, adapter)
+        setupDriversRecyclerView(recyclerView, adapter)
         subscribeObservers()
 
         refreshData()
@@ -47,7 +47,7 @@ class DriversFragment : Fragment() {
         requireActivity().title = context?.resources?.getString(R.string.drivers_fragment_title)
     }
 
-    private fun setupFeedRecyclerView(recyclerView: RecyclerView, adapter: DriverAdapter) {
+    private fun setupDriversRecyclerView(recyclerView: RecyclerView, adapter: DriverAdapter) {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(view?.context)
         recyclerView.adapter = adapter
@@ -65,8 +65,8 @@ class DriversFragment : Fragment() {
     }
 
     private fun subscribeObservers() {
-        viewModel.dataState.observe(viewLifecycleOwner) { feed ->
-            resetDrivers(feed)
+        viewModel.dataState.observe(viewLifecycleOwner) { drivers ->
+            resetDrivers(drivers)
         }
     }
 }

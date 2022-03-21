@@ -1,10 +1,13 @@
-package com.takehometest.acmerouter.remote
+package com.takehometest.acmerouter.repo.common.source.remote
 
 import android.content.Context
 import okhttp3.*
 
+/**
+ * An interceptor that intercepts all calls and provides a single mocked response constructed from
+ * an asset data file.
+ */
 class AssetRequestInterceptor(private val context: Context) : Interceptor {
-
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
 

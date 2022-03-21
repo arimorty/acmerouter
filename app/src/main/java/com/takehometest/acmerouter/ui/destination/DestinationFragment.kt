@@ -12,7 +12,7 @@ import com.takehometest.acmerouter.R
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * A simple [Fragment] subclass as the default destination in the navigation.
+ * A [Fragment] subclass that holds the destination screen.
  */
 @AndroidEntryPoint
 class DestinationFragment : Fragment() {

@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
- * Local is where data changes from the app are saved to, thus simulating a fully functional
+ * Local source, where data changes from the app are saved to, thus simulating a fully functional
  * remote source.
  */
 interface DestinationRepoLocalSource {
@@ -18,7 +18,7 @@ interface DestinationRepoLocalSource {
 }
 
 /**
- * Remote is readonly for now, so only a accessor method is needed.
+ * Remote source, readonly for now, so only a accessor method is needed.
  */
 interface DestinationRepoRemoteSource {
     suspend fun getDestinations(): List<Destination>
