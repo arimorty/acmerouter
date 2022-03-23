@@ -22,20 +22,20 @@ the View.
 
 ### Directory structure
 
-<pre>
-├── <span style="color:lightGreen">**di**</span> contains the machenics of dependency injections of the app
-├── <span style="color:lightGreen">**entity**</span> business objects, e.g Driver, Destination, along with business logic
-├── <span style="color:lightGreen">**repo**</span> access abstraction for data models needed to serve the app starting from the domain going down to the UI
-│   ├── <span style="color:lightGreen">**destination**</span> contains definition, and implementation for the Destination data object's repo
-│   │   └── <span style="color:lightGreen">**source**</span> contains a local and remote source for use as part of the repo implementation
-│   └── <span style="color:lightGreen">**driver**</span> contains definition, and implementation for the Driver data object's repo
-│       └── <span style="color:lightGreen">**source**<**/span> contains a local and remote source for use as part of the repo implementation
-├── <span style="color:lightGreen">**ui****</span> contains all UI specific logic
-│   ├── <span style="color:lightGreen">**common**</span> contains reusable UI code
-│   ├── <span style="color:lightGreen">**destination**</span> contains UI View and ViewModels for the destination screen
-│   └── <span style="color:lightGreen">**drivers**</span> contains UI View and ViewModels for the drivers screen
-└── <span style="color:lightGreen">**usecase**</span> contains questions that the app can answer, e.g., GetDriverById
-</pre>
+```
+├── di - contains the machenics of dependency injections of the app
+├── entity - business objects, e.g Driver, Destination, along with business logic
+├── repo - access abstraction for data models needed to serve the app starting from the domain going down to the UI
+│   ├── destination - contains definition, and implementation for the Destination data object's repo
+│   │   └── source - contains a local and remote source for use as part of the repo implementation
+│   └── driver - contains definition, and implementation for the Driver data object's repo
+│       └── source - contains a local and remote source for use as part of the repo implementation
+├── ui - contains all UI specific logic
+│   ├── common - contains reusable UI code
+│   ├── destination - contains UI View and ViewModels for the destination screen
+│   └── drivers - contains UI View and ViewModels for the drivers screen
+└── usecase - contains questions that the app can answer, e.g., GetDriverById
+```
 
 ### Highlights
 - Domain
